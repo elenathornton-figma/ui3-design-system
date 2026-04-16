@@ -1,0 +1,300 @@
+/**
+ * UI3 Design System — CSS Custom Properties
+ *
+ * Apply [data-theme="light"] or [data-theme="dark"] to :root or any subtree.
+ * Defaults to light theme.
+ *
+ * KNOWN GAP: Enhanced Contrast (EC) themes (light-ec, dark-ec) have the same
+ * semantic token structure but higher-contrast primitive values stored in an
+ * external Figma library. The EC CSS layers are scaffolded below with the
+ * same values as their non-EC counterparts as placeholders.
+ */
+
+/* ─── Light (default) ──────────────────────────────────────────────────── */
+:root,
+[data-theme="light"] {
+  /* Text */
+  --color-text-default: #000000e5;
+  --color-text-secondary: #00000080;
+  --color-text-tertiary: #0000004d;
+  --color-text-onbrand: #ffffff;
+  --color-text-onbrand-secondary: #ffffffcc;
+  --color-text-onbrand-tertiary: #ffffff66;
+  --color-text-brand: #007be5;
+  --color-text-figjam: #8638e5;
+  --color-text-handoff: #009951;
+  --color-text-assistive: #ea10ac;
+  --color-text-danger: #dc3412;
+  --color-text-warning: #b86200;
+  --color-text-success: #009951;
+
+  /* Icon */
+  --color-icon-default: #000000e5;
+  --color-icon-secondary: #00000080;
+  --color-icon-tertiary: #0000004d;
+  --color-icon-onbrand: #ffffff;
+  --color-icon-onbrand-secondary: #ffffffcc;
+  --color-icon-onbrand-tertiary: #ffffff66;
+  --color-icon-brand: #007be5;
+  --color-icon-figjam: #8638e5;
+  --color-icon-handoff: #009951;
+  --color-icon-assistive: #ea10ac;
+  --color-icon-danger: #dc3412;
+  --color-icon-warning: #b86200;
+  --color-icon-success: #009951;
+
+  /* Background — default */
+  --color-bg-default: #ffffff;
+  --color-bg-default-hover: #f5f5f5;
+  --color-bg-default-pressed: #e6e6e6;
+  --color-bg-default-secondary: #f5f5f5;
+  --color-bg-default-tertiary: #e6e6e6;
+
+  /* Background — brand */
+  --color-bg-brand: #0d99ff;
+  --color-bg-brand-hover: #007be5;
+  --color-bg-brand-pressed: #0768cf;
+  --color-bg-brand-secondary: #0768cf;
+  --color-bg-brand-tertiary: #e5f4ff;
+  --color-bg-brand-tertiary-hover: #bde3ff;
+  --color-bg-brand-tertiary-pressed: #80caff;
+
+  /* Background — danger */
+  --color-bg-danger: #f24822;
+  --color-bg-danger-hover: #dc3412;
+  --color-bg-danger-pressed: #bd2915;
+  --color-bg-danger-secondary: #bd2915;
+  --color-bg-danger-tertiary: #ffe2e0;
+
+  /* Background — success */
+  --color-bg-success: #14ae5c;
+  --color-bg-success-hover: #009951;
+  --color-bg-success-pressed: #008043;
+  --color-bg-success-secondary: #008043;
+  --color-bg-success-tertiary: #e0f6e5;
+
+  /* Background — warning */
+  --color-bg-warning: #ffcd29;
+  --color-bg-warning-hover: #ffc21a;
+  --color-bg-warning-pressed: #fab815;
+  --color-bg-warning-secondary: #fab815;
+  --color-bg-warning-tertiary: #fff1c2;
+
+  /* Background — disabled */
+  --color-bg-disabled: #d9d9d9;
+  --color-bg-disabled-secondary: #b3b3b3;
+
+  /* Background — inverse */
+  --color-bg-inverse: #2c2c2c;
+  --color-bg-inverse-hover: #383838;
+  --color-bg-inverse-pressed: #444444;
+
+  /* Background — selected */
+  --color-bg-selected: #e5f4ff;
+  --color-bg-selected-hover: #bde3ff;
+  --color-bg-selected-pressed: #80caff;
+  --color-bg-selected-strong: #0d99ff;
+  --color-bg-selected-strong-hover: #007be5;
+  --color-bg-selected-strong-pressed: #0768cf;
+
+  /* Background — elevated */
+  --color-bg-elevated: #ffffff;
+  --color-bg-elevated-hover: #f5f5f5;
+
+  /* Background — transparent */
+  --color-bg-transparent: #0000000d;
+  --color-bg-transparent-hover: #0000000d;
+  --color-bg-transparent-pressed: #0000001a;
+
+  /* Background — menu */
+  --color-bg-menu: #1e1e1e;
+  --color-bg-menu-hover: #2c2c2c;
+  --color-bg-menu-selected: #0d99ff;
+  --color-bg-menu-selected-hover: #007be5;
+  --color-bg-menu-disabled: #757575;
+
+  /* Background — toolbar */
+  --color-bg-toolbar: #2c2c2c;
+  --color-bg-toolbar-hover: #111111;
+  --color-bg-toolbar-selected: #0d99ff;
+  --color-bg-toolbar-selected-hover: #007be5;
+  --color-bg-toolbar-disabled: #757575;
+
+  /* Background — tooltip */
+  --color-bg-tooltip: #1e1e1e;
+
+  /* Background — product surfaces */
+  --color-bg-figjam: #9747ff;
+  --color-bg-handoff: #14ae5c;
+  --color-bg-assistive: #ff24bd;
+
+  /* Border */
+  --color-border-default: #e6e6e6;
+  --color-border-strong: #2c2c2c;
+  --color-border-onbrand-strong: #ffffff;
+  --color-border-selected: #0d99ff;
+  --color-border-selected-strong: #007be5;
+  --color-border-menu: #383838;
+
+  /* Spacing */
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-2-5: 12px;
+  --spacing-3: 16px;
+  --spacing-4: 24px;
+  --spacing-5: 32px;
+  --spacing-6: 40px;
+
+  /* Radius */
+  --radius-none: 0px;
+  --radius-small: 2px;
+  --radius-medium: 5px;
+  --radius-large: 13px;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-family-default: Inter, system-ui, -apple-system, sans-serif;
+  --font-family-display: Whyte, Inter, system-ui, sans-serif;
+  --font-family-mono: "Roboto Mono", "JetBrains Mono", monospace;
+  --font-weight-default: 450;
+  --font-weight-strong: 550;
+}
+
+/* ─── Dark ─────────────────────────────────────────────────────────────── */
+[data-theme="dark"] {
+  /* Text */
+  --color-text-default: #ffffff;
+  --color-text-secondary: #ffffffb2;
+  --color-text-tertiary: #ffffff66;
+  --color-text-onbrand: #ffffff;
+  --color-text-onbrand-secondary: #ffffffcc;
+  --color-text-onbrand-tertiary: #ffffff66;
+  --color-text-brand: #7cc4f8;
+  --color-text-figjam: #c5b2dc;
+  --color-text-handoff: #7cd797;
+  --color-text-assistive: #fc9ce0;
+  --color-text-danger: #fca397;
+  --color-text-warning: #f7d15f;
+  --color-text-success: #7cd797;
+
+  /* Icon */
+  --color-icon-default: #ffffff;
+  --color-icon-secondary: #ffffffb2;
+  --color-icon-tertiary: #ffffff66;
+  --color-icon-onbrand: #ffffff;
+  --color-icon-onbrand-secondary: #ffffffcc;
+  --color-icon-onbrand-tertiary: #ffffff66;
+  --color-icon-brand: #7cc4f8;
+  --color-icon-figjam: #d1a8ff;
+  --color-icon-handoff: #7cd797;
+  --color-icon-assistive: #fc9ce0;
+  --color-icon-danger: #fca397;
+  --color-icon-warning: #f7d15f;
+  --color-icon-success: #7cd797;
+
+  /* Background — default */
+  --color-bg-default: #2c2c2c;
+  --color-bg-default-hover: #383838;
+  --color-bg-default-pressed: #444444;
+  --color-bg-default-secondary: #383838;
+  --color-bg-default-tertiary: #444444;
+
+  /* Background — brand */
+  --color-bg-brand: #0c8ce9;
+  --color-bg-brand-hover: #0a6dc2;
+  --color-bg-brand-pressed: #105cad;
+  --color-bg-brand-secondary: #105cad;
+  --color-bg-brand-tertiary: #394360;
+  --color-bg-brand-tertiary-hover: #4a5878;
+  --color-bg-brand-tertiary-pressed: #536383;
+
+  /* Background — danger */
+  --color-bg-danger: #e03e1a;
+  --color-bg-danger-hover: #c4381c;
+  --color-bg-danger-pressed: #963323;
+  --color-bg-danger-secondary: #963323;
+  --color-bg-danger-tertiary: #60332a;
+
+  /* Background — success */
+  --color-bg-success: #198f51;
+  --color-bg-success-hover: #078348;
+  --color-bg-success-pressed: #0a5c35;
+  --color-bg-success-secondary: #0a5c35;
+  --color-bg-success-tertiary: #2f483c;
+
+  /* Background — warning */
+  --color-bg-warning: #f3c11b;
+  --color-bg-warning-hover: #f2b50d;
+  --color-bg-warning-pressed: #e4a711;
+  --color-bg-warning-secondary: #e4a711;
+  --color-bg-warning-tertiary: #5c4100;
+
+  /* Background — disabled */
+  --color-bg-disabled: #757575;
+  --color-bg-disabled-secondary: #b3b3b3;
+
+  /* Background — inverse */
+  --color-bg-inverse: #ffffff;
+  --color-bg-inverse-hover: #f5f5f5;
+  --color-bg-inverse-pressed: #e6e6e6;
+
+  /* Background — selected */
+  --color-bg-selected: #4a5878;
+  --color-bg-selected-hover: #536383;
+  --color-bg-selected-pressed: #4a5878;
+  --color-bg-selected-strong: #0c8ce9;
+  --color-bg-selected-strong-hover: #0a6dc2;
+  --color-bg-selected-strong-pressed: #105cad;
+
+  /* Background — elevated */
+  --color-bg-elevated: #1e1e1e;
+  --color-bg-elevated-hover: #2c2c2c;
+
+  /* Background — transparent */
+  --color-bg-transparent: #ffffff0d;
+  --color-bg-transparent-hover: #ffffff0d;
+  --color-bg-transparent-pressed: #ffffff1a;
+
+  /* Background — menu */
+  --color-bg-menu: #1e1e1e;
+  --color-bg-menu-hover: #2c2c2c;
+  --color-bg-menu-selected: #0c8ce9;
+  --color-bg-menu-selected-hover: #0a6dc2;
+  --color-bg-menu-disabled: #757575;
+
+  /* Background — toolbar */
+  --color-bg-toolbar: #2c2c2c;
+  --color-bg-toolbar-hover: #111111;
+  --color-bg-toolbar-selected: #0c8ce9;
+  --color-bg-toolbar-selected-hover: #0a6dc2;
+  --color-bg-toolbar-disabled: #757575;
+
+  /* Background — tooltip */
+  --color-bg-tooltip: #1e1e1e;
+
+  /* Background — product surfaces */
+  --color-bg-figjam: #8a38f5;
+  --color-bg-handoff: #198f51;
+  --color-bg-assistive: #f316b0;
+
+  /* Border */
+  --color-border-default: #444444;
+  --color-border-strong: #ffffffe5;
+  --color-border-onbrand-strong: #ffffff;
+  --color-border-selected: #0c8ce9;
+  --color-border-selected-strong: #7cc4f8;
+  --color-border-menu: #383838;
+}
+
+/* ─── Enhanced Contrast (stub — uses same values as non-EC) ────────────── */
+/* KNOWN GAP: EC primitive values live in an external Figma library file    */
+/* that is not part of the three exported libraries. Values need manual     */
+/* audit against the Figma EC theme when that library becomes accessible.  */
+[data-theme="light-ec"] {
+  /* Inherits light values — override here when EC primitives are available */
+}
+
+[data-theme="dark-ec"] {
+  /* Inherits dark values — override here when EC primitives are available */
+}
