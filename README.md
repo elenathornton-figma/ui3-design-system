@@ -1,4 +1,4 @@
-# UI3 Design System
+# Generated FPL/UI3 Design System (Design -> Code) 
 
 A React + TypeScript component library generated from the Figma UI3 design libraries. Includes design tokens, themed CSS variables, and 19 components covering the full UI3 component surface.
 
