@@ -29,15 +29,9 @@ The UI3 Tokens file (`vnBChO91d7tXFBMmlzGM6F`) contains **12 variable collection
 
 #### Enhanced Contrast (EC) modes — `light-ec` and `dark-ec`
 
-The `Design` collection has four modes: Light, Dark, Light-EC, Dark-EC.
+✅ **Resolved.** EC token values were resolved by chasing the `VARIABLE_ALIAS` chains in the UI3 Tokens Design collection across all four modes. The EC modes only override tokens that differ from their light/dark base — 53 variables in `light-ec` and 30 in `dark-ec`.
 
-EC modes resolve to a **different primitive color palette** stored in a separate Figma file that was not included in the three provided libraries. The alias chain for EC tokens terminates at variable IDs in an external file, so the hex values could not be resolved.
-
-**Impact:** `[data-theme="light-ec"]` and `[data-theme="dark-ec"]` in `vars.css` are empty — consumers get the Light theme as a fallback.
-
-**All 63 EC color tokens are affected.** The token keys exist in the `ColorTokens` interface but the CSS variables that back them are unpopulated.
-
-**Fix:** Identify the UI3 primitives file (likely "UI3 Primitives" or "Color Ramp") and re-run token extraction against it.
+`[data-theme="light-ec"]` and `[data-theme="dark-ec"]` in `vars.css` are now populated with the resolved hex/rgba values.
 
 #### Product surface color variables in the Design collection
 
@@ -47,57 +41,58 @@ The Design collection also includes product-surface-specific semantic tokens (e.
 
 ## Components
 
+### Newly implemented
+
+| Component | File | Notes |
+|-----------|------|-------|
+| **Banner** | `src/components/Banner/Banner.tsx` | Supports all three Figma subtypes: `full-width`, `inset`, `multi-line`. Props confirmed from Figma. Variants: default/brand/danger/warn/success/transparent. |
+| **SegmentedControl** | `src/components/SegmentedControl/SegmentedControl.tsx` | Props confirmed from Figma. Option types: icon/text/text-fill. Sizes: md/lg. |
+
 ### Not implemented
 
-These components exist in the UI3 Library (`N0izGT6Y7WwEOJABqPXBCv`) but were not built. They were identified via `search_design_system` but not implemented because:
-
-1. Their complexity warranted more time than was available in a first-pass generation.
-2. Several require external dependencies (date pickers, virtual scroll) that would add significant scope.
-3. Some are marked beta in Figma and may not be stable.
+These components exist in the UI3 Library but were not built.
 
 | Component | Reason not implemented |
 |-----------|------------------------|
-| **Banner** | Informational banners with icon + action slot. Omitted in first pass. |
-| **SegmentedControl** | Multi-option toggle control. Similar to Tabs but different interaction model. Omitted in first pass. |
 | **Popover** | Positioned floating content with rich slots. Shares positioning logic with Tooltip but needs a content projection model. Omitted in first pass. |
 | **Swatch** | Color swatch picker used in fill/stroke panels. Requires internal color state that is highly Figma-specific. Omitted. |
-| **Form / FormField** | Beta component in Figma. Wrapper that composes Input, label, and validation. Omitted because it is marked beta and its API is unstable. |
-| **Windows** | Floating panel system. Complex resize + drag behaviour. Omitted in first pass. |
+| **Form / FormField** | Beta component in Figma (🟢 Form [beta]). Wrapper that composes Input, label, and validation. Omitted because it is marked beta. |
+| **Windows** | Floating panel system. Complex resize + drag behaviour. Omitted. |
 | **Notifications** | Notification feed / inbox UI. Requires a data model beyond what can be inferred from Figma. Omitted. |
 | **Comments** | Threaded comment UI. Same issue as Notifications — requires data model. Omitted. |
 
 ### Implemented but approximated
 
-These components are built but their variant/prop structures were **inferred** rather than read directly from Figma nodes. The account has view-only access to the Library file, which blocks Plugin API execution. Component structures were derived from component names returned by `search_design_system` and from known UI3 conventions.
+These components are built. Props marked ✅ were read directly from Figma `componentPropertyDefinitions`. Props marked ⚠ were inferred.
 
-| Component | What was approximated | Confidence |
-|-----------|-----------------------|------------|
-| **Button** | Variant names (primary/secondary/tertiary/destructive/ghost) and size names (large/medium/small) | High — matches published UI3 docs |
-| **Input** | State prop values (default/error/disabled), size prop (medium/small), icon slot names | High |
-| **Badge** | Variant names (default/brand/danger/success/warning/figjam/handoff), `dot` prop, `max` prop | Medium — variant list may be incomplete |
-| **Chip** | Variant names, removable prop, leadingIcon slot | Medium |
-| **Avatar** | Size variants (not exposed as prop — defaults to 24px). May be missing size/shape variants. | Medium |
-| **Select** | Custom implementation — no access to the Figma component's internal structure. Keyboard behaviour may differ from spec. | Low |
-| **Slider** | Single-thumb only. Figma component may support a range variant (two thumbs). | Low |
-| **Menu** | Item structure (icon/label/shortcut/destructive) inferred. Submenu/nested menu not implemented. | Medium |
-| **Toast** | Severity variants (neutral/success/danger/warning) present, but exact Figma prop names not confirmed. | Medium |
-| **Loading** | Spinner and dots variants confirmed. Size variants not confirmed. | Medium |
+| Component | Props status |
+|-----------|-------------|
+| **Button** | ⚠ Variant names (primary/secondary/tertiary/destructive/ghost) and size names inferred — matches published UI3 docs |
+| **Input** | ⚠ State prop values, size prop, icon slot names inferred |
+| **Badge** | ✅ Variants updated to `defaultFilled/defaultOutline/brandFilled/brandOutline/inverseFilled/componentFilled/componentOutline/dangerFilled/dangerOutline/warningFilled/warningOutline/successFilled/successOutline/inactiveFilled/inactiveOutline/onFill`. Size `md\|lg` added. |
+| **Chip** | ✅ Variants updated to `default\|component\|success\|warning\|danger\|toggle\|override`. `selected` boolean prop added. |
+| **Avatar** | ✅ Variant (`photo\|purple\|grey\|green\|yellow\|red\|pink\|blue\|org\|overflow-unread\|overflow-read`), size (`default\|small\|large`), shape (`circle\|square`) all confirmed from Figma. |
+| **Select** | ✅ `variant` (`Property\|Form`), `size` (`md\|lg`), `readonly`, `validation` (`None\|Invalid\|Warning`), `leadingIcon` all confirmed from Figma. |
+| **Slider** | ✅ `variant` (`fill\|range\|stepper\|slider\|corner-radius\|gradient\|color-range`) confirmed from Figma. Range two-thumb prop signature added but rendering is single-thumb. |
+| **Toast** | ✅ Variants updated to `default\|message\|message-dismiss\|danger` (Figma). `success\|warning` kept as extended variants. |
+| **Menu** | ⚠ Item structure (icon/label/shortcut/destructive) inferred. Submenu/nested menu not implemented. |
+| **Loading** | ⚠ Spinner and dots variants confirmed. Size variants not confirmed. |
 
 ### Icons
 
-The Icons file (`ycDPAaAih2bZY5LgXehVai`) contains hundreds of icons. **SVG path data could not be extracted** because the Plugin API requires edit access to execute JavaScript, and the account has view-only access.
+**Substantially resolved.** SVG path data was extracted via `exportAsync({ format: 'SVG' })` against the UI3-Icons library (`qBEMOvSsIWywMb0oTdCfi5`). `src/icons/Icon.tsx` now uses `dangerouslySetInnerHTML` to inject Figma-exported SVG inner content, with `fill="currentColor"` normalization for CSS color inheritance.
 
-**What was done instead:**
-- Icon names were retrieved via `search_design_system` queries.
-- SVG paths for ~20 common icons were hand-coded in `src/icons/Icon.tsx` (`PATHS_24` and `PATHS_16`).
-- All other icon names render a dashed placeholder rectangle.
-- `IconName` uses `string & {}` as a catch-all so TypeScript does not reject unknown names.
+**Coverage:**
+- 16px icons: 29 icons with real Figma SVG paths.
+- 24px icons: 73 icons with real Figma SVG paths.
+- All others fall back to a dashed placeholder rectangle.
+- `IconName` union lists all 92 known names; `string & {}` catch-all accepts unknown names.
 
-**Fix:** Export all SVGs from the Figma Icons file (File → Export, select all → SVG), then generate typed React components:
+**Remaining gaps (still placeholder):**
+Some 24px icons were not reachable in the batch extraction due to the 20 KB transport limit. These fall back to the dashed rect:
+`replace`, `props`, `recent` (24px), `pause`, `circle-up.large`, `community.large`, `community.new`, `community.new.large`, `count-star`, `feed` (24px), `file.community.*`, `flip.horizontal`, `flip.vertical`, `gift.large`, `mail.filled`, `mirror*`, `number-list` (24px), `opacity.large`, `page-number`, `progress.fake`, `sitemap`, `spacing.*`, `text` (24px, some variants), `underline-*`, `update.text.style*`, `variable.color*`, `version.merged`, `wall.large`.
 
-```bash
-npx @svgr/cli --typescript --icon --out-dir src/icons/svgs icons/export/
-```
+**Fix:** Run another batch extraction from the Icons file for the remaining names above.
 
 ---
 
@@ -105,7 +100,7 @@ npx @svgr/cli --typescript --icon --out-dir src/icons/svgs icons/export/
 
 | Issue | Severity | Detail |
 |-------|----------|--------|
-| **EC theme stubs** | Medium | `[data-theme="light-ec"]` and `[data-theme="dark-ec"]` in `vars.css` are empty — falls back to light/dark |
+| **EC theme stubs** | ✅ Resolved | `[data-theme="light-ec"]` and `[data-theme="dark-ec"]` in `vars.css` now populated — 53 light-ec and 30 dark-ec overrides |
 | **Variable font weights** | Low | Inter uses 450/550 fractional weights. Requires Inter Variable to render correctly. Standard weight environments round to 400/500/600. |
 | **`fontWeight` in inline styles** | Low | React's `CSSProperties` types `fontWeight` as `number \| string`, which rejects `var(--font-weight-strong)`. Worked around with `as unknown as number` cast. Move to CSS Modules to eliminate. |
 | **Multi-surface token system** | Medium | The 8 skipped product-surface collections (FigJam, Dev, Slides, etc.) each have 1065 semantic color variables. Supporting them requires a theme system that accepts a surface dimension in addition to light/dark. |

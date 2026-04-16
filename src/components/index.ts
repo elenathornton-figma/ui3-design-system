@@ -23,3 +23,7 @@ export * from "./Menu/Menu";
 // Navigation
 export * from "./Tabs/Tabs";
 export * from "./Collapse/Collapse";
+export * from "./SegmentedControl/SegmentedControl";
+
+// Feedback
+export * from "./Banner/Banner";

@@ -1,5 +1,13 @@
 import React, { useState, useRef, useEffect, useId } from "react";
 
+// Props match Figma Select componentPropertyDefinitions:
+// Variant: Property | Form
+// Size: md | lg
+// State: Default | Hover | Focus
+// Validation: None | Invalid | Warning
+// Disabled, Readonly
+// Lead (boolean — leadingIcon slot)
+
 export interface SelectOption {
   value: string;
   label: string;
@@ -13,9 +21,17 @@ export interface SelectProps {
   placeholder?: string;
   onChange?: (value: string) => void;
   disabled?: boolean;
+  readonly?: boolean;
+  /** "Property" is the compact inline variant; "Form" is the form-field variant */
+  variant?: "Property" | "Form";
+  size?: "md" | "lg";
+  /** "Invalid" maps to errorText display; "Warning" shows warning state */
+  validation?: "None" | "Invalid" | "Warning";
   label?: string;
   helperText?: string;
+  /** Convenience: sets validation="Invalid" and shows this text */
   errorText?: string;
+  leadingIcon?: React.ReactNode;
   id?: string;
 }
 
@@ -26,9 +42,14 @@ export function Select({
   placeholder = "Select…",
   onChange,
   disabled = false,
+  readonly = false,
+  variant = "Property",
+  size = "md",
+  validation,
   label,
   helperText,
   errorText,
+  leadingIcon,
   id,
 }: SelectProps) {
   const generatedId = useId();
@@ -41,7 +62,12 @@ export function Select({
 
   const value = isControlled ? controlledValue : internalValue;
   const selectedOption = options.find((o) => o.value === value);
-  const isError = !!errorText;
+  // Resolve validation state: explicit prop wins, errorText is shorthand for Invalid
+  const resolvedValidation = validation ?? (errorText ? "Invalid" : "None");
+  const isError = resolvedValidation === "Invalid";
+  const isWarning = resolvedValidation === "Warning";
+  const resolvedErrorText = errorText ?? (resolvedValidation === "Invalid" ? helperText : undefined);
+  const height = size === "lg" ? 32 : 28;
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -64,6 +90,8 @@ export function Select({
 
   const borderColor = isError
     ? "var(--color-bg-danger)"
+    : isWarning
+    ? "var(--color-bg-warning)"
     : focused
     ? "var(--color-border-selected)"
     : "var(--color-border-default)";
@@ -93,7 +121,7 @@ export function Select({
           aria-haspopup="listbox"
           aria-expanded={open}
           onClick={() => {
-            if (!disabled) {
+            if (!disabled && !readonly) {
               setOpen((p) => !p);
               setFocused(true);
             }
@@ -103,7 +131,7 @@ export function Select({
           }}
           style={{
             width: "100%",
-            height: 28,
+            height,
             paddingInline: 8,
             display: "flex",
             alignItems: "center",
@@ -113,12 +141,14 @@ export function Select({
             border: `1px solid ${borderColor}`,
             background: disabled
               ? "var(--color-bg-disabled)"
+              : readonly
+              ? "var(--color-bg-default-secondary)"
               : "var(--color-bg-default)",
             opacity: disabled ? 0.4 : 1,
-            cursor: disabled ? "not-allowed" : "pointer",
+            cursor: disabled ? "not-allowed" : readonly ? "default" : "pointer",
             fontFamily: "var(--font-family-default)",
-            fontSize: 13,
-            letterSpacing: "-0.25px",
+            fontSize: size === "lg" ? 13 : 11,
+            letterSpacing: size === "lg" ? "-0.25px" : "0.5px",
             color: selectedOption
               ? "var(--color-text-default)"
               : "var(--color-text-secondary)",
@@ -126,6 +156,11 @@ export function Select({
             outline: "none",
           }}
         >
+          {leadingIcon && (
+            <span style={{ display: "flex", alignItems: "center", flexShrink: 0, color: "var(--color-icon-secondary)" }}>
+              {leadingIcon}
+            </span>
+          )}
           <span style={{ flex: 1, textAlign: "left", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
             {selectedOption?.label ?? placeholder}
           </span>
@@ -212,7 +247,7 @@ export function Select({
         )}
       </div>
 
-      {(isError ? errorText : helperText) && (
+      {(isError ? resolvedErrorText : helperText) && (
         <span
           style={{
             fontFamily: "var(--font-family-default)",
@@ -220,10 +255,12 @@ export function Select({
             letterSpacing: "0.5px",
             color: isError
               ? "var(--color-text-danger)"
+              : isWarning
+              ? "var(--color-text-warning)"
               : "var(--color-text-secondary)",
           }}
         >
-          {isError ? errorText : helperText}
+          {isError ? resolvedErrorText : helperText}
         </span>
       )}
     </div>

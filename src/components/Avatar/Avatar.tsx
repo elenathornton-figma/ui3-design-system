@@ -1,28 +1,60 @@
 import React from "react";
 
-export type AvatarSize = "large" | "medium" | "small" | "xsmall";
+// Sizes match Figma Avatar componentPropertyDefinitions:
+// 👥 Size: Default | Small | Large
+// 👥 Shape: Circle | Square
+// 👥 Variant: Photo | Purple | Grey | Green | Yellow | Red | Pink | Blue | Overflow Unread | Overflow Read | Org
+export type AvatarSize = "default" | "small" | "large";
+export type AvatarShape = "circle" | "square";
+export type AvatarVariant =
+  | "photo"
+  | "purple"
+  | "grey"
+  | "green"
+  | "yellow"
+  | "red"
+  | "pink"
+  | "blue"
+  | "org"
+  | "overflow-unread"
+  | "overflow-read";
 
 export interface AvatarProps {
-  /** Image URL */
+  /** Image URL — used when variant is "photo" */
   src?: string;
-  /** Alt text / fallback initials source */
+  /** Display name — used for initials fallback and aria-label */
   name?: string;
   size?: AvatarSize;
+  shape?: AvatarShape;
+  variant?: AvatarVariant;
   style?: React.CSSProperties;
 }
 
 const sizeMap: Record<AvatarSize, number> = {
-  large: 32,
-  medium: 24,
-  small: 20,
-  xsmall: 16,
+  default: 24,
+  small:   20,
+  large:   32,
 };
 
 const fontSizeMap: Record<AvatarSize, number> = {
-  large: 13,
-  medium: 11,
-  small: 9,
-  xsmall: 9,
+  default: 11,
+  small:   9,
+  large:   13,
+};
+
+// Token-mapped background colors for each variant
+const variantBgMap: Record<AvatarVariant, string> = {
+  photo:            "transparent",
+  purple:           "var(--color-bg-avatar-purple, #7B61FF)",
+  grey:             "var(--color-bg-avatar-grey, #9CA3AF)",
+  green:            "var(--color-bg-avatar-green, #10B981)",
+  yellow:           "var(--color-bg-avatar-yellow, #F59E0B)",
+  red:              "var(--color-bg-avatar-red, #EF4444)",
+  pink:             "var(--color-bg-avatar-pink, #EC4899)",
+  blue:             "var(--color-bg-avatar-blue, #3B82F6)",
+  org:              "var(--color-bg-default-secondary)",
+  "overflow-unread":"var(--color-bg-danger)",
+  "overflow-read":  "var(--color-bg-inverse)",
 };
 
 function getInitials(name: string): string {
@@ -31,19 +63,35 @@ function getInitials(name: string): string {
   return name.slice(0, 2).toUpperCase();
 }
 
-/** Stable hue from name string */
-function nameToHue(name: string): number {
+/** Derive a stable variant from a name string for auto-coloring when no variant is given */
+function nameToVariant(name: string): AvatarVariant {
+  const colorVariants: AvatarVariant[] = ["purple", "grey", "green", "yellow", "red", "pink", "blue"];
   let hash = 0;
   for (let i = 0; i < name.length; i++) {
     hash = name.charCodeAt(i) + ((hash << 5) - hash);
   }
-  return Math.abs(hash) % 360;
+  return colorVariants[Math.abs(hash) % colorVariants.length];
 }
 
-export function Avatar({ src, name = "", size = "medium", style }: AvatarProps) {
+export function Avatar({
+  src,
+  name = "",
+  size = "default",
+  shape = "circle",
+  variant,
+  style,
+}: AvatarProps) {
   const px = sizeMap[size];
   const fs = fontSizeMap[size];
-  const hue = nameToHue(name);
+
+  // Resolve variant: explicit > photo (if src) > derived from name
+  const resolvedVariant: AvatarVariant =
+    variant ?? (src ? "photo" : name ? nameToVariant(name) : "grey");
+
+  const bg = variantBgMap[resolvedVariant];
+  const borderRadius = shape === "square"
+    ? "var(--radius-small)"
+    : "var(--radius-full)";
 
   return (
     <span
@@ -54,14 +102,14 @@ export function Avatar({ src, name = "", size = "medium", style }: AvatarProps) 
         justifyContent: "center",
         width: px,
         height: px,
-        borderRadius: "var(--radius-full)",
+        borderRadius,
         overflow: "hidden",
         flexShrink: 0,
-        background: src ? "transparent" : `hsl(${hue}, 60%, 50%)`,
+        background: bg,
         ...style,
       }}
     >
-      {src ? (
+      {resolvedVariant === "photo" && src ? (
         <img
           src={src}
           alt={name}
@@ -69,6 +117,19 @@ export function Avatar({ src, name = "", size = "medium", style }: AvatarProps) 
           height={px}
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
+      ) : resolvedVariant === "overflow-unread" || resolvedVariant === "overflow-read" ? (
+        <span
+          aria-hidden="true"
+          style={{
+            fontFamily: "var(--font-family-default)",
+            fontSize: fs,
+            fontWeight: "var(--font-weight-strong)" as unknown as number,
+            color: "var(--color-text-onbrand)",
+            lineHeight: 1,
+          }}
+        >
+          +
+        </span>
       ) : (
         <span
           aria-hidden="true"
@@ -81,7 +142,7 @@ export function Avatar({ src, name = "", size = "medium", style }: AvatarProps) 
             lineHeight: 1,
           }}
         >
-          {getInitials(name)}
+          {name ? getInitials(name) : ""}
         </span>
       )}
     </span>

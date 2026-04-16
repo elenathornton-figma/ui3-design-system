@@ -2,7 +2,10 @@ import React, { createContext, useContext, useState, useCallback, useRef, useEff
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
-export type ToastVariant = "default" | "success" | "warning" | "danger";
+// Variants match Figma Toast componentPropertyDefinitions:
+// 👥 Variant: Default | Message | Message w Dismiss | Danger
+// "success" and "warning" are kept as extended variants for functional use.
+export type ToastVariant = "default" | "message" | "message-dismiss" | "danger" | "success" | "warning";
 
 export interface ToastItem {
   id: string;
@@ -87,17 +90,21 @@ function ToastContainer({
 // ── Toast banner ──────────────────────────────────────────────────────────────
 
 const variantIcons: Record<ToastVariant, string | null> = {
-  default:  null,
-  success:  "✓",
-  warning:  "⚠",
-  danger:   "✕",
+  default:          null,
+  message:          null,
+  "message-dismiss":null,
+  danger:           "✕",
+  success:          "✓",
+  warning:          "⚠",
 };
 
 const variantColors: Record<ToastVariant, string> = {
-  default: "var(--color-bg-inverse)",
-  success: "var(--color-bg-success)",
-  warning: "var(--color-bg-warning)",
-  danger:  "var(--color-bg-danger)",
+  default:          "var(--color-bg-inverse)",
+  message:          "var(--color-bg-inverse)",
+  "message-dismiss":"var(--color-bg-inverse)",
+  danger:           "var(--color-bg-danger)",
+  success:          "var(--color-bg-success)",
+  warning:          "var(--color-bg-warning)",
 };
 
 function ToastBanner({

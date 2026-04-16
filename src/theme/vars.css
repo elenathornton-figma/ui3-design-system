@@ -287,14 +287,98 @@
   --color-border-menu: #383838;
 }
 
-/* ─── Enhanced Contrast (stub — uses same values as non-EC) ────────────── */
-/* KNOWN GAP: EC primitive values live in an external Figma library file    */
-/* that is not part of the three exported libraries. Values need manual     */
-/* audit against the Figma EC theme when that library becomes accessible.  */
+/* ─── Enhanced Contrast ─────────────────────────────────────────────────── */
+/* Resolved via Figma variable alias chain from UI3 Tokens Design collection */
+/* EC modes only override tokens that differ from their light/dark base.     */
 [data-theme="light-ec"] {
-  /* Inherits light values — override here when EC primitives are available */
+  /* Text */
+  --color-text-assistive: #971172;
+  --color-text-brand: #034ac1;
+  --color-text-danger: #9f1f18;
+  --color-text-figjam: #681abb;
+  --color-text-handoff: #024626;
+  --color-text-secondary: rgba(0,0,0,0.80);
+  --color-text-success: #024626;
+  --color-text-tertiary: #444444;
+  /* Icon */
+  --color-icon-assistive: #971172;
+  --color-icon-brand: #034ac1;
+  --color-icon-danger: #9f1f18;
+  --color-icon-figjam: #681abb;
+  --color-icon-handoff: #024626;
+  --color-icon-secondary: rgba(0,0,0,0.80);
+  --color-icon-success: #024626;
+  --color-icon-tertiary: rgba(0,0,0,0.80);
+  --color-icon-warning: #5c4100;
+  /* Background */
+  --color-bg-assistive: #971172;
+  --color-bg-brand: #034ac1;
+  --color-bg-brand-hover: #093077;
+  --color-bg-brand-pressed: #0d193f;
+  --color-bg-brand-secondary: #0d193f;
+  --color-bg-danger: #9f1f18;
+  --color-bg-danger-hover: #771208;
+  --color-bg-danger-pressed: #660e0b;
+  --color-bg-danger-secondary: #660e0b;
+  --color-bg-figjam: #681abb;
+  --color-bg-handoff: #024626;
+  --color-bg-menu-hover: #b3b3b3;
+  --color-bg-menu-selected: #80caff;
+  --color-bg-menu-selected-hover: #bde3ff;
+  --color-bg-selected-strong: #80caff;
+  --color-bg-selected-strong-hover: #0d99ff;
+  --color-bg-selected-strong-pressed: #007be5;
+  --color-bg-success: #024626;
+  --color-bg-success-hover: #083a23;
+  --color-bg-success-pressed: #083a23;
+  --color-bg-success-secondary: #172b22;
+  --color-bg-toolbar-selected: #034ac1;
+  --color-bg-toolbar-selected-hover: #093077;
+  --color-bg-warning: #5c4100;
+  --color-bg-warning-hover: #3a2a10;
+  --color-bg-warning-pressed: #211a12;
+  --color-bg-warning-secondary: #3a2a10;
+  /* Border */
+  --color-border-default: #757575;
+  --color-border-selected: #034ac1;
+  --color-border-selected-strong: #093077;
 }
 
 [data-theme="dark-ec"] {
-  /* Inherits dark values — override here when EC primitives are available */
+  /* Text */
+  --color-text-figjam: #e4ccff;
+  --color-text-secondary: #ffffff;
+  --color-text-tertiary: rgba(255,255,255,0.80);
+  /* Icon */
+  --color-icon-figjam: #e4ccff;
+  --color-icon-tertiary: rgba(255,255,255,0.70);
+  /* Background */
+  --color-bg-assistive: #ff99e0;
+  --color-bg-brand: #80caff;
+  --color-bg-brand-hover: #bde3ff;
+  --color-bg-brand-pressed: #e5f4ff;
+  --color-bg-brand-secondary: #80caff;
+  --color-bg-danger: #ffe2e0;
+  --color-bg-danger-hover: #ffc7c2;
+  --color-bg-danger-pressed: #ffafa3;
+  --color-bg-danger-secondary: #eba99d;
+  --color-bg-figjam: #d9b8ff;
+  --color-bg-handoff: #8ddda4;
+  --color-bg-menu-hover: #b3b3b3;
+  --color-bg-menu-selected: #80caff;
+  --color-bg-menu-selected-hover: #bde3ff;
+  --color-bg-selected: #394360;
+  --color-bg-selected-strong: #80caff;
+  --color-bg-selected-strong-hover: #0d99ff;
+  --color-bg-selected-strong-pressed: #007be5;
+  --color-bg-success: #8ddda4;
+  --color-bg-success-hover: #b9ebc6;
+  --color-bg-success-pressed: #e0f6e5;
+  --color-bg-success-secondary: #9fc1aa;
+  --color-bg-toolbar-selected: #80caff;
+  --color-bg-toolbar-selected-hover: #bde3ff;
+  /* Border */
+  --color-border-default: #757575;
+  --color-border-selected: #80caff;
+  --color-border-selected-strong: #bde3ff;
 }

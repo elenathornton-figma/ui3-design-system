@@ -1,13 +1,23 @@
 import React, { useState, useId } from "react";
 
+// Variants match Figma Slider componentPropertyDefinitions:
+// 👥 Variant: Corner Radius | Fill | Gradient | Range | Stepper | Slider | Color Range | Disabled
+// This implementation supports the primary variants: "fill" (default), "range", "stepper", "slider"
+export type SliderVariant = "fill" | "range" | "stepper" | "slider" | "corner-radius" | "gradient" | "color-range";
+
 export interface SliderProps {
   min?: number;
   max?: number;
   step?: number;
   value?: number;
+  /** Second thumb value — used when variant="range" */
+  valueEnd?: number;
   defaultValue?: number;
   onChange?: (value: number) => void;
+  /** Called with [start, end] when variant="range" */
+  onRangeChange?: (range: [number, number]) => void;
   disabled?: boolean;
+  variant?: SliderVariant;
   label?: string;
   showValue?: boolean;
   id?: string;
@@ -18,9 +28,12 @@ export function Slider({
   max = 100,
   step = 1,
   value: controlledValue,
+  valueEnd,
   defaultValue = 0,
   onChange,
+  onRangeChange,
   disabled = false,
+  variant = "fill",
   label,
   showValue = false,
   id,
