@@ -10,14 +10,24 @@ A React + TypeScript component library generated from the Figma UI3 design libra
 -->
 
 ### Light theme
+(these are just screenshots, you can generate an interactive demo following the instructions below)
+<img width="973" height="367" alt="image" src="https://github.com/user-attachments/assets/50041a23-e20d-4cad-bdef-89dfb01f2580" />
+<img width="935" height="391" alt="image" src="https://github.com/user-attachments/assets/7e88ad66-a384-4261-af73-ff6fbad33b3a" />
+<img width="947" height="422" alt="image" src="https://github.com/user-attachments/assets/aa834da4-2b15-41fd-a880-9f869a4f6bf0" />
+<img width="946" height="315" alt="image" src="https://github.com/user-attachments/assets/0247555c-e8d7-468a-8576-75d759c2f88a" />
+<img width="957" height="367" alt="image" src="https://github.com/user-attachments/assets/c9858318-4ffe-4709-b489-c6cc0c9f9be5" />
+<img width="940" height="428" alt="image" src="https://github.com/user-attachments/assets/be4bc8bb-2c39-44a4-8e16-f4c8f6b356fe" />
+<img width="956" height="667" alt="image" src="https://github.com/user-attachments/assets/bf190d83-95c4-49e6-a969-4cbff577f0e8" />
+<img width="941" height="674" alt="image" src="https://github.com/user-attachments/assets/cc5d4450-0a86-47ff-917c-3d2a0da49010" />
+<img width="945" height="363" alt="image" src="https://github.com/user-attachments/assets/016fbe14-354b-426d-865f-47b251abcce2" />
 
-<!-- replace with screenshot -->
-_screenshot coming soon_
+
 
 ### Dark theme
 
-<!-- replace with screenshot -->
-_screenshot coming soon_
+<img width="953" height="367" alt="image" src="https://github.com/user-attachments/assets/c23bdd6a-49b4-4bca-ab7c-c555563bc248" />
+<img width="939" height="392" alt="image" src="https://github.com/user-attachments/assets/28475b28-4f97-4635-99ab-546e7112feb7" />
+TODO: add the rest of the dark theme screenshots
 
 ---
 
