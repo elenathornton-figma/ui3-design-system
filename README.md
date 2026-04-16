@@ -103,12 +103,13 @@ npm run dev
 
 ## Known gaps
 
-See [GAPS.md](GAPS.md) for a full list. Key items:
+See [GAPS.md](GAPS.md) for a full breakdown. Key items:
 
-- **EC themes** — `light-ec` / `dark-ec` token primitives live in an external file not included in the three source libraries; selectors are stubbed
-- **8 components not yet implemented** — Combobox, DatePicker, ColorPicker, Tree, Table, Pagination, Progress, Breadcrumb
-- **Icons** — SVG paths extracted from search results; a small number of less-common icons may be missing or approximated
-- **Multi-surface tokens** — FigJam, Slides, Sites, and other product surface token collections are not yet implemented
+- **8 of 12 token collections skipped** — Only Design/Typography/Spacing/Radius were implemented. FigJam, Dev mode, Slides, Sites, Buzz, Draw, Make, and Animate collections were skipped (product-surface tokens not relevant to a UI component library).
+- **EC themes empty** — `light-ec` / `dark-ec` CSS variables are unpopulated stubs because the EC primitive color file is in a separate Figma library not included in the provided three. Falls back to light/dark.
+- **8 components not implemented** — Banner, SegmentedControl, Popover, Swatch, Form/FormField (beta), Windows, Notifications, Comments.
+- **10 components approximated** — Variant/prop structures were inferred from component names rather than read from Figma nodes directly (view-only access blocks the Plugin API). See GAPS.md for per-component confidence levels.
+- **Icons mostly placeholder** — SVG paths for ~20 common icons only; all others render a dashed rectangle. View-only access blocked SVG extraction.
 
 ---
 
