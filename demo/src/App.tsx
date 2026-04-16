@@ -392,26 +392,33 @@ export default function App() {
 
             {/* ── Badge ── */}
             <Section title="Badge">
-              <Label>Variants</Label>
+              <Label>Filled variants</Label>
               <Row>
-                {(["default","brand","danger","success","warning","figjam","handoff"] as const).map((v) => (
-                  <Badge key={v} count={v === "default" ? 1 : v === "brand" ? 12 : v === "danger" ? 99 : v === "warning" ? 100 : 3} variant={v} />
+                {(["defaultFilled","brandFilled","inverseFilled","componentFilled","dangerFilled","warningFilled","successFilled","inactiveFilled","onFill"] as const).map((v) => (
+                  <Badge key={v} count={3} variant={v} />
+                ))}
+              </Row>
+
+              <Label>Outline variants</Label>
+              <Row>
+                {(["defaultOutline","brandOutline","componentOutline","dangerOutline","warningOutline","successOutline","inactiveOutline"] as const).map((v) => (
+                  <Badge key={v} count={3} variant={v} />
                 ))}
               </Row>
 
               <Label>Dot</Label>
               <Row>
-                {(["default","brand","danger","success","warning"] as const).map((v) => (
+                {(["defaultFilled","brandFilled","dangerFilled","successFilled","warningFilled"] as const).map((v) => (
                   <Badge key={v} dot variant={v} />
                 ))}
               </Row>
 
               <Label>Anchored on button</Label>
               <Row>
-                <Badge count={4} variant="danger">
+                <Badge count={4} variant="dangerFilled">
                   <Button variant="secondary" size="medium">Inbox</Button>
                 </Badge>
-                <Badge count={12} variant="brand">
+                <Badge count={12} variant="brandFilled">
                   <Button variant="secondary" size="medium">Notifications</Button>
                 </Badge>
               </Row>
@@ -421,7 +428,7 @@ export default function App() {
             <Section title="Avatar">
               <Label>Sizes</Label>
               <Row>
-                {(["large","medium","small","xsmall"] as const).map((s) => (
+                {(["large","default","small"] as const).map((s) => (
                   <div key={s} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
                     <Avatar size={s} name="Elena Thornton" />
                     <span style={{ fontSize: 9, color: "var(--color-text-tertiary)", fontFamily: "var(--font-family-default)" }}>{s}</span>
@@ -441,19 +448,25 @@ export default function App() {
             <Section title="Chip">
               <Label>Variants</Label>
               <Row>
-                {(["default","selected","brand","danger","success","warning"] as const).map((v) => (
+                {(["default","component","success","warning","danger","toggle","override"] as const).map((v) => (
                   <Chip key={v} label={v.charAt(0).toUpperCase() + v.slice(1)} variant={v} />
                 ))}
               </Row>
+              <Label>Selected state</Label>
+              <Row>
+                <Chip label="Toggle on" variant="toggle" selected />
+                <Chip label="Toggle off" variant="toggle" />
+                <Chip label="Override" variant="override" selected />
+              </Row>
               <Label>With remove</Label>
               <Row>
-                <Chip label="React" variant="brand" onRemove={() => {}} />
-                <Chip label="TypeScript" variant="selected" onRemove={() => {}} />
+                <Chip label="Component" variant="component" onRemove={() => {}} />
+                <Chip label="Default" variant="default" onRemove={() => {}} />
                 <Chip label="Figma" variant="default" onRemove={() => {}} />
               </Row>
               <Label>With icon</Label>
               <Row>
-                <Chip label="AI" leadingIcon={<Icon name="ai" size={10} color="currentColor" />} variant="brand" />
+                <Chip label="AI" leadingIcon={<Icon name="ai" size={10} color="currentColor" />} variant="component" />
                 <Chip label="Warning" leadingIcon={<Icon name="warning" size={10} color="currentColor" />} variant="warning" />
                 <Chip label="Success" leadingIcon={<Icon name="check" size={10} color="currentColor" />} variant="success" />
               </Row>
